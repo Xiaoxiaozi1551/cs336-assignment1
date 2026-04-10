@@ -26,6 +26,7 @@ def find_chunk_boundaries(
     chunk_boundaries[-1] = file_size
 
     mini_chunk_size = 4096  # Read ahead by 4k bytes at a time
+    print(chunk_boundaries)
 
     for bi in range(1, len(chunk_boundaries) - 1):
         initial_position = chunk_boundaries[bi]
@@ -46,11 +47,13 @@ def find_chunk_boundaries(
             initial_position += mini_chunk_size
 
     # Make sure all boundaries are unique, but might be fewer than desired_num_chunks
+    print(chunk_boundaries)
+    print(sorted(set(chunk_boundaries)))
     return sorted(set(chunk_boundaries))
 
 
 ## Usage
-with open(..., "rb") as f:
+with open("/data/swzhou/cs336/assignment1-basics/cs336_basics/pretokenization_example.py", "rb") as f:
     num_processes = 4
     boundaries = find_chunk_boundaries(f, num_processes, b"<|endoftext|>")
 
